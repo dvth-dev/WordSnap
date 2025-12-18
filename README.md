@@ -1,16 +1,29 @@
-# wordsnap
+# 📸 SnapVocab – Học tiếng Anh bằng hình ảnh
 
-A new Flutter project.
+## Mô tả ngắn gọn
 
-## Getting Started
+**SnapVocab** là ứng dụng học tiếng Anh giúp người dùng **ghi nhớ từ vựng thông qua hình ảnh đồ vật thật** xung quanh cuộc sống hằng ngày. Người dùng chỉ cần **chụp ảnh một đồ vật**, ứng dụng sẽ **nhận diện đồ vật, hiển thị từ tiếng Anh tương ứng và lưu lại dưới dạng flashcard** để ôn tập sau này.
 
-This project is a starting point for a Flutter application.
+### Điểm nổi bật
 
-A few resources to get you started if this is your first Flutter project:
+* 📷 Học từ vựng bằng **ảnh do chính người dùng chụp**
+* 🤖 Tự động **nhận diện đồ vật và gán từ tiếng Anh**
+* 🧠 Lưu trữ dưới dạng **flashcard cá nhân hóa**
+* 📚 Học trực quan, dễ nhớ, gắn với ngữ cảnh thực tế
+* 📱 Hỗ trợ sử dụng **offline**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 📸 SnapVocab – Learn English Through Photos
+
+## Short Description
+
+**SnapVocab** is an English learning application that helps users build vocabulary by using **real-world objects captured through their own camera**. Users simply **take a photo of an object**, and the app will **detect the object, display its English word, and save it as a flashcard** for future review.
+
+### Key Highlights
+
+* 📷 Learn vocabulary from **user-captured real-life images**
+* 🤖 Automatic **object detection and English word labeling**
+* 🧠 Personalized **flashcard-based learning**
+* 📚 Visual and contextual learning for better memorization
+* 📱 Works **offline**, anytime and anywhere
