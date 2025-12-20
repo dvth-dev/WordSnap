@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordsnap/features/app/bloc/app_event.dart';
+import 'package:wordsnap/features/onboard/onboard_screen.dart';
 
-import 'features/app/bloc/app_bloc.dart';
-import 'features/app/bloc/app_state.dart';
+import 'bloc/app_bloc.dart';
+import 'bloc/app_state.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,7 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
-        return MaterialApp(home: _buildHome(state, context));
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: _buildHome(state, context),
+        );
       },
     );
   }
@@ -27,28 +31,7 @@ class MyApp extends StatelessWidget {
     }
 
     if (state is AppFirstLaunchState) {
-      return Scaffold(
-        appBar: AppBar(),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 30.0,
-            children: [
-              Text('First Launch App - Show Onboard'),
-              InkWell(
-                onTap: () {
-                  context.read<AppBloc>().add(OnboardCompleted());
-                },
-                child: Container(
-                  height: 30,
-                  width: 300,
-                  color: Colors.blueGrey,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+      return const OnboardScreen();
     }
 
     if (state is AppReadyState) {
