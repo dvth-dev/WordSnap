@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wordsnap/features/app/app.dart';
 import 'package:wordsnap/core/constants/hive_box_name.dart';
 import 'package:wordsnap/core/services/hive_service.dart';
+import 'package:wordsnap/features/app/app.dart';
 import 'package:wordsnap/features/app/bloc/app_bloc.dart';
 import 'package:wordsnap/features/settings/data/datasources/setting_local_datasource.dart';
 import 'package:wordsnap/features/settings/data/repositories/setting_repository_impl.dart';

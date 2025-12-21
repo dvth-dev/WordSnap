@@ -6,18 +6,18 @@ abstract class AppState extends Equatable {
   List<Object> get props => [];
 }
 
-class AppLoadingState extends AppState {}
+class AppSplashState extends AppState {}
 
-class AppFirstLaunchState extends AppState {
+class AppOnboardState extends AppState {
   final SettingModel settingModel;
 
-  AppFirstLaunchState({required this.settingModel});
+  AppOnboardState({required this.settingModel});
 
   @override
   // TODO: implement props
   List<Object> get props => [settingModel];
 }
 
-class AppReadyState extends AppState {}
+class AppHomeState extends AppState {}
 
 class AppErrorState extends AppState {}

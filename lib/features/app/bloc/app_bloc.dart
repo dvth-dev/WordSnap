@@ -6,21 +6,22 @@ import 'package:wordsnap/features/settings/data/repositories/setting_repository.
 class AppBloc extends Bloc<AppEvent, AppState> {
   final SettingRepository settingRepository;
 
-  AppBloc({required this.settingRepository}) : super(AppLoadingState()) {
-    on<AppInit>(_onAppInit);
+  AppBloc({required this.settingRepository}) : super(AppSplashState()) {
+    on<SplashCompleted>(_onSplashCompleted);
     on<OnboardCompleted>(_onOnboardCompleted);
     on<ResetApp>(_resetApp);
   }
 
-  Future _onAppInit(AppInit event, Emitter<AppState> emit) async {
-    emit(AppLoadingState());
-
+  Future _onSplashCompleted(
+    SplashCompleted event,
+    Emitter<AppState> emit,
+  ) async {
     try {
       final settingModel = await settingRepository.getSetting();
       if (settingModel.isFirstLaunch) {
-        emit(AppFirstLaunchState(settingModel: settingModel));
+        emit(AppOnboardState(settingModel: settingModel));
       } else {
-        emit(AppReadyState());
+        emit(AppHomeState());
       }
     } catch (error) {
       emit(AppErrorState());
@@ -33,9 +34,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) async {
     try {
       await settingRepository.completeOnboard();
-      final settingModel = await settingRepository.getSetting();
 
-      emit(AppReadyState());
+      emit(AppHomeState());
     } catch (error) {
       emit(AppErrorState());
     }
@@ -44,7 +44,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Future _resetApp(ResetApp event, Emitter<AppState> emit) async {
     try {
       await settingRepository.resetApp();
-      emit(AppLoadingState());
+      emit(AppSplashState());
     } catch (_) {
       emit(AppErrorState());
     }

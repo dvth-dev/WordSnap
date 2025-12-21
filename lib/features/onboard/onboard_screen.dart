@@ -4,10 +4,10 @@ import 'package:wordsnap/core/constants/app_colors.dart';
 import 'package:wordsnap/core/constants/app_dimens.dart';
 import 'package:wordsnap/core/widgets/button_widget.dart';
 import 'package:wordsnap/core/widgets/text_widget.dart';
+import 'package:wordsnap/features/app/bloc/app_bloc.dart';
 import 'package:wordsnap/features/onboard/data/models/onboard_model.dart';
 import 'package:wordsnap/features/onboard/widgets/onboard_page_widget.dart';
 
-import '../app/bloc/app_bloc.dart';
 import '../app/bloc/app_event.dart';
 
 class OnboardScreen extends StatefulWidget {
@@ -32,12 +32,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
       viewportFraction: 1,
     );
 
-    _pageController.addListener(listenerPageview);
+    _pageController.addListener(listenerPageView);
   }
 
   @override
   void dispose() {
-    _pageController.removeListener(listenerPageview);
+    _pageController.removeListener(listenerPageView);
     _pageController.dispose();
     super.dispose();
   }
@@ -83,7 +83,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
     maxPage = listOnboard.length;
   }
 
-  void listenerPageview() {
+  void listenerPageView() {
     final page = (_pageController.page ?? 0).round();
     if (page != _currentIndex) {
       setState(() {
@@ -126,6 +126,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
             duration: Duration(milliseconds: 300),
             curve: Curves.ease,
           );
+        } else {
+          context.read<AppBloc>().add(OnboardCompleted());
         }
       },
       child: Row(
