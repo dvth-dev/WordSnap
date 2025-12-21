@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Wordsnap</string>
+		<string>WordSnap</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -47,5 +47,11 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSCameraUsageDescription</key>
+        <string>Chúng tôi cần truy cập Camera để bạn có thể chụp ảnh vật thể.</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Chúng tôi cần truy cập Micro để bạn có thể quay video.</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Chúng tôi cần truy cập thư viện ảnh để lưu kết quả chụp được.</string>
 	</dict>
 </plist>

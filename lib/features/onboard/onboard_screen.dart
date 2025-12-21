@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wordsnap/core/constants/app_colors.dart';
 import 'package:wordsnap/core/constants/app_dimens.dart';
 import 'package:wordsnap/core/widgets/button_widget.dart';
+import 'package:wordsnap/core/widgets/inkwell_widget.dart';
 import 'package:wordsnap/core/widgets/text_widget.dart';
 import 'package:wordsnap/features/app/bloc/app_bloc.dart';
 import 'package:wordsnap/features/onboard/data/models/onboard_model.dart';
@@ -97,14 +98,19 @@ class _OnboardScreenState extends State<OnboardScreen> {
       backgroundColor: AppColors.background,
       elevation: 0.0,
       actions: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: Dimens.p16),
-          width: MediaQuery.of(context).size.width,
-          child: TextWidget(
-            'Skip',
-            textAlign: TextAlign.end,
-            fontSize: Dimens.f16,
-            color: AppColors.title,
+        InkwellWidget(
+          onTap: (){
+            context.read<AppBloc>().add(OnboardCompleted());
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: Dimens.p16),
+            width: MediaQuery.of(context).size.width,
+            child: TextWidget(
+              'Skip',
+              textAlign: TextAlign.end,
+              fontSize: Dimens.f16,
+              color: AppColors.title,
+            ),
           ),
         ),
       ],
