@@ -6,5 +6,3 @@ abstract class HomeEvent extends Equatable {
 }
 
 class HomeStarted extends HomeEvent {}
-
-class RequestCameraPermission extends HomeEvent {}

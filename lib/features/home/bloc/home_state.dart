@@ -8,11 +8,3 @@ abstract class HomeState extends Equatable {
 class HomeInitialState extends HomeState {}
 
 class HomeReadyState extends HomeState {}
-
-class CameraPermissionGranted extends HomeState {}
-
-class CameraPermissionDenied extends HomeState {
-  final bool isPermanentlyDenied;
-
-  CameraPermissionDenied({required this.isPermanentlyDenied});
-}

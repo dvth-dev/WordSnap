@@ -31,17 +31,22 @@ GoRouter createRouter(AppBloc appBloc) {
       final currentLocation = state.matchedLocation;
 
       if (appState is AppSplashState) {
-        return currentLocation == RouterPath.splash ? null : RouterPath.splash;
+        if (currentLocation != RouterPath.splash) {
+          return RouterPath.splash;
+        }
       }
 
       if (appState is AppOnboardState) {
-        return currentLocation == RouterPath.onboard
-            ? null
-            : RouterPath.onboard;
+        if (currentLocation != RouterPath.onboard) {
+          return RouterPath.onboard;
+        }
       }
 
       if (appState is AppHomeState) {
-        return currentLocation == RouterPath.home ? null : RouterPath.home;
+        if (currentLocation == RouterPath.splash ||
+            currentLocation == RouterPath.onboard) {
+          return RouterPath.home;
+        }
       }
 
       return null;

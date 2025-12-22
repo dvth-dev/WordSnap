@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:wordsnap/core/constants/app_colors.dart';
 import 'package:wordsnap/core/constants/app_dimens.dart';
 import 'package:wordsnap/core/constants/app_string.dart';
 import 'package:wordsnap/core/router/router_paths.dart';
+import 'package:wordsnap/core/services/permission_service.dart';
 import 'package:wordsnap/core/widgets/button_widget.dart';
 import 'package:wordsnap/core/widgets/text_widget.dart';
-import 'package:wordsnap/features/app/bloc/app_event.dart';
 import 'package:wordsnap/features/home/bloc/home_bloc.dart';
-import 'package:wordsnap/features/home/bloc/home_event.dart';
 import 'package:wordsnap/features/home/bloc/home_state.dart';
-
-import '../../app/bloc/app_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -82,9 +78,9 @@ class HomeScreen extends StatelessWidget {
           ButtonWidget(
             title: 'Take a photo',
             onPressed: () {
-              GoRouter.of(context).push(RouterPath.cameraActive);
+              // GoRouter.of(context).push(RouterPath.cameraActive);
               // context.push(RouterPath.cameraActive);
-              // context.read<HomeBloc>().add(RequestCameraPermission());
+              _handleOnTapCamera(context);
             },
             backgroundColor: AppColors.primary,
           ),
@@ -98,27 +94,63 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void listenerHomeBloc(BuildContext context, Object? state) {
-    if (state is HomeReadyState) {
-      print("App is ready");
-    }
-    print('----------listenerHomeBloc: $state');
-    if (state is CameraPermissionGranted) {
-      context.go(RouterPath.cameraActive);
-    }
+  void listenerHomeBloc(BuildContext context, Object? state) {}
 
-    if (state is CameraPermissionDenied) {
-      if (state.isPermanentlyDenied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Bạn cần cấp quyền Camera để tiếp tục")),
-        );
-        if (state.isPermanentlyDenied) {
-          // Gợi ý mở cài đặt
-          openAppSettings();
-        }
+  Future _handleOnTapCamera(BuildContext context) async {
+    // Step 1: Check/Request Camera permission
+    final permissionGranted =
+        await PermissionService.instance.requestCameraPermission();
+
+    if (permissionGranted) {
+      // Step 2: Go to Camera Active Screen
+      if (!context.mounted) return;
+
+      context.push(RouterPath.cameraActive);
+    } else {
+      // Step 3: Permission Denied -> Show Dialog
+      final isPermanentlyDenied =
+          await PermissionService.instance.isCameraPermanentlyDenied();
+
+      if (!context.mounted) return;
+
+      if (isPermanentlyDenied) {
+        _showSettingsDialog(context);
+      } else {
+        _showPermissionDeniedSnackBar(context);
       }
     }
   }
 
-  navigatorCameraActive() async {}
+  void _showSettingsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Cần quyền Camera'),
+            content: const Text(
+              'Bạn đã từ chối quyền camera. '
+              'Vui lòng vào Settings để cấp quyền.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Hủy'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  PermissionService.instance.openSettings();
+                },
+                child: const Text('Mở Settings'),
+              ),
+            ],
+          ),
+    );
+  }
+
+  void _showPermissionDeniedSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Cần quyền camera để chụp ảnh')),
+    );
+  }
 }
