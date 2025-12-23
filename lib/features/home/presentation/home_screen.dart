@@ -78,8 +78,6 @@ class HomeScreen extends StatelessWidget {
           ButtonWidget(
             title: 'Take a photo',
             onPressed: () {
-              // GoRouter.of(context).push(RouterPath.cameraActive);
-              // context.push(RouterPath.cameraActive);
               _handleOnTapCamera(context);
             },
             backgroundColor: AppColors.primary,
